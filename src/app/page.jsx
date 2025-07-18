@@ -1,7 +1,18 @@
+import Link from "next/link"
 export default function Home(){
   return(
-    <div>
-      ini halaman home nantinya akan kita tambah komponen
-    </div>
+    <section className="flex flex-col w-full pt-20 justify-center text-center">
+      <h1 className="text-3xl font-bold">
+        Create Ur Message With They Favorite Song
+      </h1>
+      <div className="flex flex-row justify-center gap-40 mt-20">
+          <Link href="/receipt" className="bg-background p-5 font-bold rounded-2xl text-white hover:bg-[#343434]">
+            Create Ur Message
+          </Link>
+          <Link href="/message" className="bg-white p-5 border border-black font-bold rounded-2xl hover:bg-[#EEEEEE]">
+            Show All Message
+          </Link>
+      </div>
+    </section>
   )
 }

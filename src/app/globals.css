@@ -1,26 +1,36 @@
 @import "tailwindcss";
 
+/* Tambahkan font lokal Caveat */
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/Caveat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sans: 'Caveat', sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  /* Jangan timpa --font-sans di sini kalau kamu mau pakai Caveat */
+  /* --font-sans: var(--font-geist-sans); */
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #ffffff;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--foreground);
+  color: var(--background);
+  font-family: var(--font-sans); /* Akan gunakan 'Caveat' */
 }
