@@ -53,8 +53,8 @@ export default function Search() {
   }
 
   return (
-    <section className="flex justify-center h-screen">
-      <div className="pt-10 w-full h-full max-w-[30rem] space-y-10">
+    <section className="flex justify-center h-screen ">
+      <div className="pt-10 w-full h-full max-w-[25rem] space-y-10">
         <h1 className="text-center text-2xl font-bold">Make Ur Receipt For They</h1>
         {/* input nama */}
         <div className="flex flex-row items-center gap-13">
@@ -93,7 +93,7 @@ export default function Search() {
                 width="100%"
                 height="80"
                 frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                allow="autoplay; clipboard-black; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
                 className="rounded-xl"
                 onLoad={() => setIsLoading(false)} 
