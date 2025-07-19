@@ -1,11 +1,11 @@
 import Link from "next/link"
 export default function Home(){
   return(
-    <section className="flex flex-col w-full pt-20 justify-center text-center">
+    <section className="flex flex-col w-full px-4 justify-center items-center text-center h-screen">
       <h1 className="text-3xl font-bold">
         Create Ur Message With They Favorite Song
       </h1>
-      <div className="flex flex-row justify-center gap-20 mt-20">
+      <div className="flex flex-row justify-center gap-10 mt-20">
           <Link href="/receipt" className="bg-foreground p-5 font-bold rounded-2xl text-white hover:bg-[#343434]">
             Create Ur Message
           </Link>
@@ -13,6 +13,7 @@ export default function Home(){
             Show All Message
           </Link>
       </div>
+      
     </section>
   )
 }

@@ -54,12 +54,12 @@ export default function Search() {
 
   return (
     <section className="flex justify-center h-screen ">
-      <div className="pt-10 w-full h-full max-w-[25rem] space-y-10">
+      <div className="pt-10 w-full h-full max-w-[25rem] px-4 space-y-10">
         <h1 className="text-center text-2xl font-bold">Make Ur Receipt For They</h1>
         {/* input nama */}
         <div className="flex flex-row items-center gap-13">
           <div className="text-xl w-[30px]">To :</div>
-          <input type="text" className="border px-2 w-full h-10 rounded-xl" style={{fontFamily:'Caveat'}}/>
+          <input type="text" spellCheck={false} className="border px-2 w-full h-10 rounded-xl" style={{fontFamily:'Caveat'}}/>
         </div>
 
         {/* pesan */}
