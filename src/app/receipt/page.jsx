@@ -1,12 +1,15 @@
-'use client'
-import { useState, useEffect} from "react"
-import axios from "axios"
-import { useRouter } from "next/navigation"
+'use client';
+import { useState, useEffect} from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import {db} from "@/app/lib/firebase/firebase";
+import {addDoc,collection,Timestamp} from "firebase/firestore";
 
 export default function Search() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [to, setTo] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading,setIsLoading] = useState(false); 
   const router = useRouter()
@@ -41,14 +44,24 @@ export default function Search() {
   };
 
   const handleSend = async () => {
+   if (!selected || !message || !to) return;
+
     try {
-      const res = await axios.post("/api/create", {
+      const docRef = await addDoc(collection(db, "messages"), {
+        to,
         message,
-        trackId: selected.id
+        track: {
+          id: selected.id,
+          name: selected.name,
+          image: selected.album.images[0]?.url,
+          artists: selected.artists.map(a => a.name),
+        },
+        createdAt: Timestamp.now(),
       })
-      router.push(`/message/${res.data.id}`)
+
+      router.push(`/message/${docRef.id}`);
     } catch (err) {
-      console.error("Send error:", err)
+      console.error("Firestore save error:", err);
     }
   }
 
@@ -58,8 +71,13 @@ export default function Search() {
         <h1 className="text-center text-2xl font-bold">Make Ur Receipt For They</h1>
         {/* input nama */}
         <div className="flex flex-row items-center gap-13">
-          <div className="text-xl w-[30px]">To :</div>
-          <input type="text" spellCheck={false} className="border px-2 w-full h-10 rounded-xl" style={{fontFamily:'Caveat'}}/>
+          <div className="text-xl w-[30px]">To:</div>
+          <input 
+          type="text"
+          value={to}
+          onChange={(e) => setTo(e.target.value)} 
+          spellCheck={false} 
+          className="border px-2 w-full h-10 rounded-xl" style={{fontFamily:'Caveat'}}/>
         </div>
 
         {/* pesan */}
