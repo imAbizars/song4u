@@ -50,7 +50,7 @@ export default function Message() {
 
 
   return (
-    <section className="flex flex-col justify-center items-center pt-10 min-h-screen max-w-[25rem]">
+    <section className="flex flex-col justify-center items-center pt-10 pb-20 min-h-screen max-w-[25rem]">
       <div className="text-center">
         <h1 className="text-3xl font-bold">All Message Made By Them</h1>
         <p className="">See What Everyone Has Shared</p>
