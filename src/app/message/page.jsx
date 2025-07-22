@@ -9,30 +9,37 @@ export default function Message() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredMessages, setFilteredMessages] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-
+  const [isLoading,setIsLoading] = useState(true);
   useEffect(() => {
     fetchMessages(); 
   }, []);
 
   const fetchMessages = async (term = "") => {
-    let q;
-    if (term.trim() !== "") {
-      q = query(collection(db, "messages"), where("To", "==", term));
-    } else {
-      q = collection(db, "messages");
-    }
-
+    setIsLoading(true);
+    try {
+    const q = query(collection(db, "messages"));
     const querySnapshot = await getDocs(q);
-    const data = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    setMessages(data);
+
+    // Tambahkan delay 2 detik
+    setTimeout(() => {
+      const data = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setMessages(data);
+      setIsLoading(false);
+    }, 2000); // delay 2000ms (2 detik)
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    setIsLoading(false);
+  }
   };
 
   const handleSearch = () => {
   if (!searchTerm.trim()) {
     setIsSearching(false);
+    setFilteredMessages([]);
     return;
   }
 
@@ -46,7 +53,7 @@ export default function Message() {
 
 
   return (
-    <section className="flex flex-col justify-center items-center min-h-screen max-w-[25rem]">
+    <section className="flex flex-col justify-center items-center pt-10 min-h-screen max-w-[25rem]">
       <div className="text-center">
         <h1 className="text-3xl font-bold">All Message Made By Them</h1>
         <p className="">See What Everyone Has Shared</p>
@@ -70,8 +77,15 @@ export default function Message() {
 
 
       <div className="mt-20 w-full px-4 sm:px-6">
-            <div className="grid gap-6">
-                {(isSearching ? filteredMessages : messages).map((msg) => {
+            <div className="grid gap-6 relative">
+                {isLoading ? (
+                    <div className="absolute inset-0 flex justify-center items-center space-x-2">
+                    <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                    <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                    <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" />
+                    </div>
+                ) :
+                (isSearching ? filteredMessages : messages).map((msg) => {
                 const previewLength = 30;
                 const words = msg.message.split(" ");
                 const previewText = words.slice(0, previewLength).join(" ");
@@ -103,6 +117,9 @@ export default function Message() {
                     </Link>
                 );
                 })}
+                {(isSearching ? filteredMessages :messages).length == 0 && !isLoading &&(
+                    <p className="text-center">No Message Found.</p>
+                )}
             </div>
         </div>
     </section>

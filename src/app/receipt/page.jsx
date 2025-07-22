@@ -11,30 +11,37 @@ export default function Search() {
   const [selected, setSelected] = useState(null);
   const [to, setTo] = useState("");
   const [message, setMessage] = useState("");
-  const [isLoading,setIsLoading] = useState(false); 
+  const [isLoading,setIsLoading] = useState(false);
+  const [isSearching,setIsSearching] = useState(false); 
   const router = useRouter()
 
   // debounce pencarian
   useEffect(() => {
-    const fetchSongs = async () => {
-      if (query.trim() === "") {
-        setResults([]); 
-        return;
-      }
+  const fetchSongs = async () => {
+    if (query.trim() === "") {
+      setResults([]);
+      setIsSearching(false);
+      return;
+    }
 
-      try {
-        const res = await axios.get("/api/search", {
-          params: { q: query },
-        });
-        setResults(res.data);
-      } catch (error) {
-        console.error("Error fetching songs:", error);
-      }
-    };
+    setIsSearching(true); 
 
-    const timeout = setTimeout(fetchSongs, 500); // debounce delay ketikan
-    return () => clearTimeout(timeout);
-  }, [query]);
+    try {
+      const res = await axios.get("/api/search", {
+        params: { q: query },
+      });
+      setResults(res.data);
+    } catch (error) {
+      console.error("Error fetching songs:", error);
+    } finally {
+      setIsSearching(false); 
+    }
+  };
+
+  const timeout = setTimeout(fetchSongs, 500); 
+  return () => clearTimeout(timeout);
+}, [query]);
+
 
   const handleSelect = (track) => {
     setSelected(track);
@@ -131,30 +138,38 @@ export default function Search() {
         </div>
         {/* hasil pencarian atau lagu terpilih */}
         <h1 className="text-xl">Result :</h1>
-        <div className="pb-5 mt-2 space-y-2">
-          {results.map((r) => (
-            <div
-            key={r.id}
-            className="flex border p-2 space-x-3 items-center cursor-pointer bg-[#F5F5F5] text-black rounded-xl hover:bg-[#EEEEEE]"
-                onClick={() => handleSelect(r)}
-              >
-                <img
-                  src={r.album.images[0].url}
-                  alt={r.name}
-                  className="w-16 h-16 object-cover rounded-sm"
-                />
-                <strong className="mr-1">{r.name}</strong> - {" "}
-                {r.artists.map((a) => a.name).join(", ")}
+          <div className="pb-5 mt-2 space-y-2">
+            {isSearching ? (
+              <div className="flex justify-center items-center space-x-2">
+                <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" />
               </div>
-            ))
-          }
+            ) : (
+              results.map((r) => (
+                <div
+                  key={r.id}
+                  className="flex border p-2 space-x-3 items-center cursor-pointer bg-[#F5F5F5] text-black rounded-xl hover:bg-[#EEEEEE]"
+                  onClick={() => handleSelect(r)}
+                >
+                  <img
+                    src={r.album.images[0].url}
+                    alt={r.name}
+                    className="w-16 h-16 object-cover rounded-sm"
+                  />
+                  <strong className="mr-1">{r.name}</strong> -{" "}
+                  {r.artists.map((a) => a.name).join(", ")}
+                </div>
+              ))
+            )}
+
             <button
               onClick={handleSend}
               className="bg-black text-white px-4 py-2 rounded-xl hover:bg-[#383737] cursor-pointer"
             >
               Send Message
             </button>
-        </div>
+          </div>
       </div>
     </section>
   )
