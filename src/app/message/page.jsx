@@ -20,8 +20,6 @@ export default function Message() {
     const q = query(collection(db, "messages"));
     const querySnapshot = await getDocs(q);
 
-    // Tambahkan delay 2 detik
-    setTimeout(() => {
       const data = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
@@ -29,7 +27,6 @@ export default function Message() {
 
       setMessages(data);
       setIsLoading(false);
-    }, 2000); // delay 2000ms (2 detik)
   } catch (error) {
     console.error("Error fetching messages:", error);
     setIsLoading(false);
