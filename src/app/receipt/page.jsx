@@ -74,7 +74,7 @@ export default function Search() {
 
   return (
     <section className="flex justify-center min-h-screen ">
-      <div className="pt-10 pb-10 w-full h-full max-w-[25rem] px-4 space-y-10 border border-black">
+      <div className="pt-10 pb-10 w-full h-full max-w-[25rem] px-4 space-y-10">
         <h1 className="text-center text-2xl font-bold">Make Ur Receipt For They</h1>
         {/* input nama */}
         <div className="flex flex-row items-center gap-13">
