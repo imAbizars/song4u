@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import backfoto from "../../../public/assets/images/backfoto.jpg";
@@ -7,28 +7,35 @@ import backfoto from "../../../public/assets/images/backfoto.jpg";
 export default function About() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [hasAutoFlipped, setHasAutoFlipped] = useState(false);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
-  const handleSwipe = (event, info) => {
-    const offset = info.offset.x;
-    const velocity = info.velocity.x;
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
 
-    if (Math.abs(offset) > 50 || Math.abs(velocity) > 500) {
+  const handleTouchEnd = (e) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    handleSwipeGesture();
+  };
+
+  const handleSwipeGesture = () => {
+    const deltaX = touchEndX.current - touchStartX.current;
+
+    if (Math.abs(deltaX) > 50) {
       setIsFlipped((prev) => !prev);
     }
   };
 
-  // Flip otomatis satu kali setelah 3 detik tanpa interaksi
+  // Auto flip
   useEffect(() => {
     if (!hasAutoFlipped) {
       const timer = setTimeout(() => {
         setIsFlipped(true);
-
-        // Flip balik ke depan setelah 2 detik
         setTimeout(() => {
           setIsFlipped(false);
         }, 1500);
-
-        setHasAutoFlipped(true); // Supaya tidak diulang lagi
+        setHasAutoFlipped(true);
       }, 3000);
 
       return () => clearTimeout(timer);
@@ -52,9 +59,6 @@ export default function About() {
         <div className="flex justify-center">
           <motion.div
             className="w-40 h-40 relative"
-            onPanEnd={handleSwipe}
-            drag="x" 
-            dragConstraints={{ left: 0, right: 0 }}
             initial={false}
             animate={{ rotateY: isFlipped ? 180 : 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -62,14 +66,13 @@ export default function About() {
               perspective: 1000,
               transformStyle: "preserve-3d",
             }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
-
             {/* Front Side */}
             <motion.div
               className="absolute inset-0 rounded-full overflow-hidden"
-              style={{
-                backfaceVisibility: "hidden",
-              }}
+              style={{ backfaceVisibility: "hidden" }}
             >
               <Image
                 src={backfoto}
