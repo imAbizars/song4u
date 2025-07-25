@@ -53,6 +53,8 @@ export default function About() {
           <motion.div
             className="w-40 h-40 relative"
             onPanEnd={handleSwipe}
+            drag="x" 
+            dragConstraints={{ left: 0, right: 0 }}
             initial={false}
             animate={{ rotateY: isFlipped ? 180 : 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -61,6 +63,7 @@ export default function About() {
               transformStyle: "preserve-3d",
             }}
           >
+
             {/* Front Side */}
             <motion.div
               className="absolute inset-0 rounded-full overflow-hidden"

@@ -96,7 +96,7 @@ export default function Message() {
                     {/* Bagian atas */}
                     <div className="mb-3">
                         <span className="text-md font-bold">To: {msg.to}</span>
-                        <p className="text-md text-gray-700 fade-text-mask mt-1">{previewText}</p>
+                        <p className="text-sm text-gray-700 fade-text-mask mt-1">{previewText}</p>
                     </div>
 
                     {/* Bagian bawah: horizontal */}
