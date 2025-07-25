@@ -43,7 +43,7 @@ export default function About() {
   }, [hasAutoFlipped]);
 
   return (
-    <section className="flex justify-center pt-20 min-h-screen">
+    <section className="flex justify-center pt-20 pb-20 min-h-screen">
       <div className="max-w-80 text-center">
         <h1 className="text-3xl">Song4u</h1>
         <p className="mt-10">
@@ -96,9 +96,8 @@ export default function About() {
           </motion.div>
         </div>
 
-        <p className="mt-4 text-sm italic">
-          Project iseng yang kubuat. Awalnya ini ditujukan untuk temanku yang
-          ingin mengungkapkan isi hatinya. Walaupun masih kurang, aku harap ini
+        <p className="mt-5">
+          "Project iseng yang gue buat. Awalnya pengen ngikutin web SendTheSong dan baru selesai,karena banyak kerjaan hehe. Walaupun masih kurang, gue harap ini
           bisa jadi sesuatu yang bermanfaat.
         </p>
       </div>

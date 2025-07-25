@@ -39,7 +39,6 @@ export default function Navbar() {
           <ul className="space-y-4">
             <li><Link href="/" onClick={toggleSidebar} className="block hover:text-yellow-300">Beranda</Link></li>
             <li><Link href="/about" onClick={toggleSidebar} className="block hover:text-yellow-300">About</Link></li>
-            <li><Link href="/support" onClick={toggleSidebar} className="block hover:text-yellow-300">Support</Link></li>
           </ul>
         </div>
       </div>
