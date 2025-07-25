@@ -3,10 +3,25 @@
 /* Tambahkan font lokal Caveat */
 @font-face {
   font-family: 'Caveat';
-  src: url('/fonts/Caveat-Regular.ttf') format('truetype');
+  src: url('/assets/fonts/Caveat-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
+/* Untuk 3D flip */
+.perspective {
+  perspective: 1000px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+
 @layer utilities{
   .fade-text-mask{
     position: relative;
