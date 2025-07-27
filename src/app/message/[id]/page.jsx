@@ -21,11 +21,17 @@ export default function MessageDetail() {
     fetchMessage();
   }, [id]);
 
-  if (!message) return <p>Loading...</p>;
+  if (!message){
+    return(
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/70 backdrop-blur-sm">
+        <div className="animate-bounce text-3xl font-bold">Load Message...</div>
+      </div>
+    )
+  };
 
   return (
-    <div className="flex flex-col p-6 min-h-screen justify-center">
-      <h1 className="text-3xl font-bold ">Hey, someone just dropped a message and maybe a piece of their heart too.</h1>
+    <div className="flex flex-col p-6 min-h-screen pt-20 ">
+      <h1 className="text-3xl font-bold ">Hey {message.to}, someone just dropped a message and maybe a piece of their heart too.</h1>
       <div className="mt-20 bg-[#FAFBFB] shadow rounded-lg overflow-hidden hover:shadow-lg transition w-full p-4">
         <h1 className="text-2xl font-bold mb-2">To: {message.to}</h1>
         <p className="mb-4">{message.message}</p>
