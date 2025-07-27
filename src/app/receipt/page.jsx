@@ -76,6 +76,9 @@ export default function Search() {
     <section className="flex justify-center min-h-screen ">
       <div className="pt-10 pb-10 w-full h-full max-w-[25rem] px-4 space-y-10">
         <h1 className="text-center text-2xl font-bold">Make Ur Receipt For They</h1>
+        <div className="text-center bg-[#3A8DFA] text-white rounded-md mx-4 p-2">
+            Remember, this message cannot be deleted or recreated. The sender of the message will be kept confidential from both the message recipient and the developer.
+        </div>
         {/* input nama */}
         <div className="flex flex-row items-center gap-13">
           <div className="text-xl w-[30px]">To:</div>
