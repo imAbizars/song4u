@@ -23,9 +23,8 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
           <h1 className="text-xl font-bold mr-8">Song4U</h1>
-          <Link href="/" className="hover:text-yellow-300">Beranda</Link>
-          <Link href="/about" className="hover:text-yellow-300">About</Link>
-          <Link href="/support" className="hover:text-yellow-300">Support</Link>
+          <Link href="/" >Beranda</Link>
+          <Link href="/about">About</Link>
         </div>
       </nav>
 
@@ -37,8 +36,8 @@ export default function Navbar() {
       >
         <div className="p-4">
           <ul className="space-y-4">
-            <li><Link href="/" onClick={toggleSidebar} className="block hover:text-yellow-300">Beranda</Link></li>
-            <li><Link href="/about" onClick={toggleSidebar} className="block hover:text-yellow-300">About</Link></li>
+            <li><Link href="/" onClick={toggleSidebar} className="block">Beranda</Link></li>
+            <li><Link href="/about" onClick={toggleSidebar} className="block">About</Link></li>
           </ul>
         </div>
       </div>
