@@ -1,15 +1,11 @@
-// app/message/[id]/page.jsx atau pages/message/[id].js
 'use client'
 import { useEffect, useState } from "react";
-import { useParams } from 'next/navigation'; // App Router
-// atau
-// import { useRouter } from 'next/router'; // Pages Router
+import { useParams } from 'next/navigation'; 
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../lib/firebase/firebase"; // sesuaikan path
+import { db } from "../../lib/firebase/firebase"; 
 
 export default function MessageDetail() {
-  const { id } = useParams(); // App Router
-  // const router = useRouter(); const { id } = router.query; // Pages Router
+  const { id } = useParams();
 
   const [message, setMessage] = useState(null);
 
