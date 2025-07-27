@@ -53,7 +53,7 @@ export default function About() {
         </p>
         <br />
         <p>
-          Platform dibuat oleh Saya Sendiri <br /> Dennis Abizar
+          Platform dibuat oleh Gue Sendiri <br /> Dennis Abizar
         </p>
         <br />
         <div className="flex justify-center">
