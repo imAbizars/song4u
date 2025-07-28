@@ -55,7 +55,6 @@ export default function Receipt() {
 
         {/* song choosed */}
         <div className="flex flex-row gap-3">
-          {/* song choosed */}
           <div className="text-xl mb-1 w-[100px]">The Song:</div>
           {selected && (
             <div className="w-full relative">
