@@ -1,25 +1,24 @@
 'use client'
 import { useState } from "react";
-import Link from "next/link";
 import { useMessages } from "../hooks/useMessages";
 import MessageCard from "../components/message/MessageCard";
 import LoadingDots from "../components/common/LoadingDots";
+import InputSearch from "../components/common/InputSearch";
 
 export default function Message() {
   const {messages, isLoading} = useMessages();
-  const [searchTerm, setSearchTerm] = useState("");
   const [filteredMessages, setFilteredMessages] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   
-  const handleSearch = () => {
-  if (!searchTerm.trim()) {
+  const handleSearch = (term) => {
+  if (!term.trim()) {
     setIsSearching(false);
     setFilteredMessages([]);
     return;
   }
 
   const results = messages.filter(msg =>
-    msg.to.toLowerCase().includes(searchTerm.toLowerCase())
+    msg.to.toLowerCase().includes(term.toLowerCase())
   );
 
   setFilteredMessages(results);
@@ -34,22 +33,8 @@ export default function Message() {
         <p className="">See What Everyone Has Shared</p>
       </div>
 
-      <div className="flex justify-center items-center mt-20 w-full space-x-4">
-        <input
-            type="text"
-            className="p-2 border border-black w-50 rounded-xl h-10"
-            placeholder="Search Your Name..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button
-            className="bg-black text-white px-4 py-2 rounded-xl hover:bg-[#383737] cursor-pointer"
-            onClick={handleSearch}
-        >
-            Search
-        </button>
-      </div>
-
+      
+      <InputSearch onSearch={handleSearch}/>
 
       <div className="mt-10 w-full px-4 sm:px-6">
         <div className="grid gap-6 relative">
