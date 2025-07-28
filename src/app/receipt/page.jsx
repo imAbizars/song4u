@@ -1,54 +1,25 @@
 'use client';
-import { useState, useEffect} from "react";
-import axios from "axios";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {db} from "@/app/lib/firebase/firebase";
 import {addDoc,collection,Timestamp} from "firebase/firestore";
+import {useSearchMessage} from "../hooks/useSearchSong"
 
 export default function Search() {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-  const [selected, setSelected] = useState(null);
+  const {
+    query,
+    setQuery,
+    results,
+    selected,
+    handleSelect,
+    isLoading,
+    setIsLoading,
+    isSearching,
+  } = useSearchMessage();
   const [to, setTo] = useState("");
   const [message, setMessage] = useState("");
-  const [isLoading,setIsLoading] = useState(false);
-  const [isSearching,setIsSearching] = useState(false); 
+   
   const router = useRouter()
-
-  // debounce pencarian
-  useEffect(() => {
-  const fetchSongs = async () => {
-    if (query.trim() === "") {
-      setResults([]);
-      setIsSearching(false);
-      return;
-    }
-
-    setIsSearching(true); 
-
-    try {
-      const res = await axios.get("/api/search", {
-        params: { q: query },
-      });
-      setResults(res.data);
-    } catch (error) {
-      console.error("Error fetching songs:", error);
-    } finally {
-      setIsSearching(false); 
-    }
-  };
-
-  const timeout = setTimeout(fetchSongs, 500); 
-  return () => clearTimeout(timeout);
-}, [query]);
-
-
-  const handleSelect = (track) => {
-    setSelected(track);
-    setQuery("");
-    setResults([]);
-    setIsLoading(true); //setloading buat iframe
-  };
 
   const handleSend = async () => {
    if (!selected || !message || !to) return;
