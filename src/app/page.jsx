@@ -1,5 +1,9 @@
+'use client'
 import Link from "next/link"
+import { useMessages } from "./hooks/useMessages"
+import MessageCard from "./components/message/MessageCard"
 export default function Home(){
+  const {messages} = useMessages();
   return(
     <section className="flex flex-col w-full px-4 justify-center items-center text-center h-screen">
       <h1 className="text-3xl font-bold">
@@ -13,7 +17,14 @@ export default function Home(){
             Show All Message
           </Link>
       </div>
-      
+      <div className="mt-10 marquee-container max-h-50 ">
+      <div className="marquee-content gap-5 ">
+          {[...messages, ...messages].map((msg, index) => (
+            <MessageCard className="bg-white text-left border border-color  rounded-lg overflow-hidden  w-full p-2" key={`${msg.id}-${index}`} msg={msg} />
+          ))}
+        </div>
+      </div>
+
     </section>
   )
 }

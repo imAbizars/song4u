@@ -11,19 +11,19 @@ export default function Message() {
   const [isSearching, setIsSearching] = useState(false);
   
   const handleSearch = (term) => {
-  if (!term.trim()) {
-    setIsSearching(false);
-    setFilteredMessages([]);
-    return;
-  }
+    if (!term.trim()) {
+      setIsSearching(false);
+      setFilteredMessages([]);
+      return;
+    }
 
-  const results = messages.filter(msg =>
-    msg.to.toLowerCase().includes(term.toLowerCase())
-  );
+    const results = messages.filter(msg =>
+      msg.to.toLowerCase().includes(term.toLowerCase())
+    );
 
-  setFilteredMessages(results);
-  setIsSearching(true);
-};
+    setFilteredMessages(results);
+    setIsSearching(true);
+  };
 
 
   return (
@@ -42,7 +42,7 @@ export default function Message() {
                 <LoadingDots/>
             ) :
             (isSearching ? filteredMessages : messages).map((msg) => (
-              <MessageCard key={msg.id} msg={msg} />
+              <MessageCard className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition w-full p-4" key={msg.id} msg={msg} />
             ))}
             {(isSearching ? filteredMessages :messages).length == 0 && !isLoading &&(
                 <p className="text-center">No Message Found.</p>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function MessageCard({ msg }) {
+export default function MessageCard({ msg ,className}) {
   const previewLength = 30;
   const words = msg.message.split(" ");
   const previewText = words.slice(0, previewLength).join(" ");
@@ -8,7 +8,7 @@ export default function MessageCard({ msg }) {
   return (
     <Link
       href={`/message/${msg.id}`}
-      className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition w-full p-4"
+      className={className}
     >
       <div className="mb-3">
         <span className="text-md font-bold">To: {msg.to}</span>
