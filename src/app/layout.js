@@ -5,7 +5,10 @@ import Footer from "./components/footer/Footer";
 
 export const metadata = {
   title: "Song4u",
-  description: "by Dennis Abizar",  
+  description: "by Dennis Abizar", 
+  icons:{
+    icon : "/Song4u.png"
+  } 
 };
 
 export default function RootLayout({ children }) {
