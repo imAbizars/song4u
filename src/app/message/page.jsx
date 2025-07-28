@@ -3,9 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useMessages } from "../hooks/useMessages";
 import MessageCard from "../components/message/MessageCard";
+import LoadingDots from "../components/common/LoadingDots";
 
 export default function Message() {
-  const [messages, isLoading] = useMessages();
+  const {messages, isLoading} = useMessages();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredMessages, setFilteredMessages] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -53,11 +54,7 @@ export default function Message() {
       <div className="mt-10 w-full px-4 sm:px-6">
         <div className="grid gap-6 relative">
             {isLoading ? (
-                <div className="absolute inset-0 flex justify-center items-center space-x-2">
-                <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" />
-                </div>
+                <LoadingDots/>
             ) :
             (isSearching ? filteredMessages : messages).map((msg) => (
               <MessageCard key={msg.id} msg={msg} />
