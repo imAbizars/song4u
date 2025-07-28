@@ -1,11 +1,9 @@
 'use client';
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import {db} from "@/app/lib/firebase/firebase";
-import {addDoc,collection,Timestamp} from "firebase/firestore";
 import {useSearchMessage} from "../hooks/useSearchSong"
+import { useSendMessage } from "../hooks/useSendMessage";
 
-export default function Search() {
+export default function Receipt() {
   const {
     query,
     setQuery,
@@ -16,32 +14,13 @@ export default function Search() {
     setIsLoading,
     isSearching,
   } = useSearchMessage();
+  const {isSending,sendMessage} = useSendMessage();
   const [to, setTo] = useState("");
   const [message, setMessage] = useState("");
    
-  const router = useRouter()
-
-  const handleSend = async () => {
-   if (!selected || !message || !to) return;
-
-    try {
-      const docRef = await addDoc(collection(db, "messages"), {
-        to,
-        message,
-        track: {
-          id: selected.id,
-          name: selected.name,
-          image: selected.album.images[0]?.url,
-          artists: selected.artists.map(a => a.name),
-        },
-        createdAt: Timestamp.now(),
-      })
-
-      router.push(`/message/${docRef.id}`);
-    } catch (err) {
-      console.error("Firestore save error:", err);
-    }
-  }
+  const handleSend = () => {
+    sendMessage({ to, message, selected });
+  };
 
   return (
     <section className="flex justify-center min-h-screen ">
@@ -139,9 +118,10 @@ export default function Search() {
 
             <button
               onClick={handleSend}
+              disabled={isSending}
               className="bg-black text-white px-4 py-2 rounded-xl hover:bg-[#383737] cursor-pointer"
             >
-              Send Message
+              {isSending?"Sendig Messages" : "Send Message"}
             </button>
           </div>
       </div>
