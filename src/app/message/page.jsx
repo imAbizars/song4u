@@ -1,38 +1,15 @@
 'use client'
-import { collection, getDocs, query} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { db } from "../lib/firebase/firebase";
+import { useState } from "react";
 import Link from "next/link";
+import { useMessages } from "../hooks/useMessages";
+import MessageCard from "../components/message/MessageCard";
 
 export default function Message() {
-  const [messages, setMessages] = useState([]);
+  const [messages, isLoading] = useMessages();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredMessages, setFilteredMessages] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [isLoading,setIsLoading] = useState(true);
-  useEffect(() => {
-    fetchMessages(); 
-  }, []);
-
-  const fetchMessages = async (term = "") => {
-    setIsLoading(true);
-    try {
-    const q = query(collection(db, "messages"));
-    const querySnapshot = await getDocs(q);
-
-      const data = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      setMessages(data);
-      setIsLoading(false);
-  } catch (error) {
-    console.error("Error fetching messages:", error);
-    setIsLoading(false);
-  }
-  };
-
+  
   const handleSearch = () => {
   if (!searchTerm.trim()) {
     setIsSearching(false);
@@ -82,38 +59,9 @@ export default function Message() {
                 <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" />
                 </div>
             ) :
-            (isSearching ? filteredMessages : messages).map((msg) => {
-            const previewLength = 30;
-            const words = msg.message.split(" ");
-            const previewText = words.slice(0, previewLength).join(" ");
-
-            return (
-                <Link
-                key={msg.id}
-                href={`/message/${msg.id}`}
-                className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition w-full p-4"
-                >
-                {/* Bagian atas */}
-                <div className="mb-3">
-                    <span className="text-md font-bold">To: {msg.to}</span>
-                    <p className="text-sm text-gray-700 fade-text-mask mt-1 ">{previewText}</p>
-                </div>
-
-                {/* Bagian bawah: horizontal */}
-                <div className="flex items-center">
-                    <img
-                    src={msg.track.image}
-                    alt={msg.track.name}
-                    className="w-16 h-16 object-cover rounded mr-4"
-                    />
-                    <div className="flex flex-col">
-                    <span className="font-semibold text-md text-gray-800">{msg.track.name}</span>
-                    <span className="text-sm text-gray-600">{msg.track.artists}</span>
-                    </div>
-                </div>
-                </Link>
-            );
-            })}
+            (isSearching ? filteredMessages : messages).map((msg) => (
+              <MessageCard key={msg.id} msg={msg} />
+            ))}
             {(isSearching ? filteredMessages :messages).length == 0 && !isLoading &&(
                 <p className="text-center">No Message Found.</p>
             )}
