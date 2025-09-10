@@ -30,11 +30,9 @@ export default function MessageDetail() {
   };
 
   return (
-    <div className="flex flex-col p-6 min-h-screen pt-20 ">
-      <h1 className="text-3xl font-bold ">Hey {message.to}, someone just dropped a message and maybe a piece of their heart too.</h1>
-      <div className="mt-20 bg-[#FAFBFB] shadow rounded-lg overflow-hidden hover:shadow-lg transition w-full p-4">
-        <h1 className="text-2xl font-bold mb-2">To: {message.to}</h1>
-        <p className="mb-4">{message.message}</p>
+    <div className="flex flex-col min-h-screen max-w-[28rem] justify-center items-center sm:mx-auto p-6 pt-10 ">
+      <h1 className="p-4 text-3xl font-bold ">Hey {message.to}, someone just dropped a message and maybe a piece of their heart too.</h1>
+      <div className="mt-5 bg-[#FAFBFB] shadow rounded-lg overflow-hidden hover:shadow-lg transition w-full p-4">
         <div className="flex items-center">
             <iframe
                     src={`https://open.spotify.com/embed/track/${message.track.id}`}
@@ -45,7 +43,9 @@ export default function MessageDetail() {
                     loading="lazy"
                     className="rounded-xl"
                 />
-            </div>
+        </div>
+        <h1 className="mt-5 text-2xl font-bold mb-2">To: {message.to}</h1>
+        <p className="mb-4">{message.message}</p>
       </div>
     </div>
   )

@@ -25,6 +25,7 @@ export default function Navbar() {
           <h1 className="text-xl font-bold mr-8">Song4U</h1>
           <Link href="/" >Beranda</Link>
           <Link href="/about">About</Link>
+          <Link href="/message">Message</Link>
         </div>
       </nav>
 
@@ -38,6 +39,7 @@ export default function Navbar() {
           <ul className="space-y-4">
             <li><Link href="/" onClick={toggleSidebar} className="block">Beranda</Link></li>
             <li><Link href="/about" onClick={toggleSidebar} className="block">About</Link></li>
+            <li><Link href="/message" onClick={toggleSidebar} className="block">Message</Link></li>
           </ul>
         </div>
       </div>

@@ -43,10 +43,10 @@ export default function About() {
   }, [hasAutoFlipped]);
 
   return (
-    <section className="flex justify-center pt-20 pb-20 min-h-screen">
+    <section className="flex justify-center pt-10 pb-20 min-h-screen">
       <div className="max-w-80 text-center">
-        <h1 className="text-3xl">Song4u</h1>
-        <p className="mt-10">
+        <h1 className="text-3xl font-bold">Song4u</h1>
+        <p className="mt-5">
           Song4u adalah platform yang memungkinkan kamu berbagi lagu favorit
           hanya dengan sekali klik. Dengarkan, pilih, dan kirim—mudah, cepat,
           bermakna.
@@ -97,8 +97,7 @@ export default function About() {
         </div>
 
         <p className="mt-5">
-          "Project iseng yang gue buat. Awalnya pengen ngikutin web SendTheSong dan baru selesai,karena banyak kerjaan hehe. Walaupun masih kurang, gue harap ini
-          bisa jadi sesuatu yang bermanfaat.
+          "Project yang gue kembangin untuk saling mengirim pesan dengan musik favoritnya, semoga dengan aplikasi ini teman-teman di sekitar gue bisa mengungkapkan perasaannya melalui platform web SONG4U."
         </p>
       </div>
     </section>

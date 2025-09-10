@@ -12,7 +12,7 @@ export default function InputSearch({ onSearch }) {
     <div className="flex justify-center items-center mt-20 w-full space-x-4">
       <input
         type="text"
-        className="p-2 border border-black w-50 rounded-xl h-10"
+        className="p-2 border-2 border-black w-50 rounded-xl h-10"
         placeholder="Search Your Name..."
         value={term}
         onChange={(e) => setTerm(e.target.value)}

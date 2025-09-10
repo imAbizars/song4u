@@ -27,7 +27,7 @@ export default function Message() {
 
 
   return (
-    <section className="flex flex-col justify-center items-center pt-10 pb-20 min-h-screen max-w-[25rem]">
+    <section className="flex flex-col justify-center items-center pt-10 pb-20 min-h-screen ">
       <div className="text-center">
         <h1 className="text-3xl font-bold">All Message Made By Them</h1>
         <p className="">See What Everyone Has Shared</p>
@@ -36,7 +36,7 @@ export default function Message() {
       
       <InputSearch onSearch={handleSearch}/>
 
-      <div className="mt-10 w-full px-4 sm:px-6">
+      <div className="mt-10 w-full px-4 sm:px-6 max-w-[28rem]">
         <div className="grid gap-6 relative">
             {isLoading ? (
                 <LoadingDots/>
