@@ -22,6 +22,7 @@ export function useSendMessage() {
           name: selected.name,
           image: selected.album.images[0]?.url,
           artists: selected.artists.map((a) => a.name),
+          previewUrl: selected.previewUrl ?? null,
         },
         createdAt: Timestamp.now(),
       });

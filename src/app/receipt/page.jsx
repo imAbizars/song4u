@@ -37,7 +37,7 @@ export default function Receipt() {
           value={to}
           onChange={(e) => setTo(e.target.value)} 
           spellCheck={false} 
-          className="border px-2 w-full h-10 rounded-xl" style={{fontFamily:'Caveat'}}/>
+          className="border-2 px-2 w-full h-10 rounded-xl" style={{fontFamily:'Caveat'}}/>
         </div>
 
         {/* pesan */}
@@ -46,7 +46,7 @@ export default function Receipt() {
           <textarea
             value={message}
             onChange={e => setMessage(e.target.value)}
-            className="p-2 border border-black rounded-xl"
+            className="p-2 border-2 border-black rounded-xl"
             rows="5"
             cols="70"
             spellCheck={false}
@@ -58,23 +58,33 @@ export default function Receipt() {
           <div className="text-xl mb-1 w-[100px]">The Song:</div>
           {selected && (
             <div className="w-full relative">
-              {isLoading && (
+              {/* {isLoading && (
                 <div className="absolute inset-0 flex items-center space-x-2">
                   <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.3s]" />
                   <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce [animation-delay:-0.15s]" />
                   <span className="w-2 h-2 bg-gray-600 rounded-full animate-bounce" />
                 </div>
+              )} */}
+              {selected && (
+                <div className="w-full">
+                  <div className="flex items-center gap-3 border-2 rounded-xl p-3">
+                    <img
+                      src={selected.album.images[0].url}
+                      className="w-16 h-16 rounded-md"
+                    />
+                    <div>
+                      <p className="font-bold">{selected.name}</p>
+                      <p className="text-sm text-gray-500">
+                        {selected.artists.map((a) => a.name).join(", ")}
+                      </p>
+                    </div>
+                  </div>
+                  {/* Preview 30 detik */}
+                  {selected.previewUrl && (
+                    <audio controls src={selected.previewUrl} className="w-full mt-2" />
+                  )}
+                </div>
               )}
-              <iframe
-                src={`https://open.spotify.com/embed/track/${selected.id}`}
-                width="100%"
-                height="80"
-                frameBorder="0"
-                allow="autoplay; clipboard-black; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                className="rounded-xl"
-                onLoad={() => setIsLoading(false)} 
-              />
             </div>
           )}
         </div> 
@@ -84,7 +94,7 @@ export default function Receipt() {
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search The Song..."
-            className="border px-2 py-1 w-full rounded-xl"
+            className="border-2 px-2 py-1 w-full rounded-xl"
             spellCheck={false}
           />
         </div>
@@ -101,7 +111,7 @@ export default function Receipt() {
               results.map((r) => (
                 <div
                   key={r.id}
-                  className="flex border p-2 space-x-3 items-center cursor-pointer bg-[#F5F5F5] text-black rounded-xl hover:bg-[#EEEEEE]"
+                  className="flex border-2 p-2 space-x-3 items-center cursor-pointer bg-[#F5F5F5] text-black rounded-xl hover:bg-[#EEEEEE]"
                   onClick={() => handleSelect(r)}
                 >
                   <img

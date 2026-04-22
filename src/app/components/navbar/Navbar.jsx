@@ -9,12 +9,18 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 flex items-center justify-between p-4 bg-white shadow-sm md:px-20">
+      <nav className="sticky top-0 z-50 flex items-center justify-between p-4 bg-white shadow-sm min-h-18">
         <button
           onClick={toggleSidebar}
-          className="md:hidden text-2xl font-bold z-50 focus:outline-none"
+          className="md:hidden  text-3xl font-bold z-50 focus:outline-none " 
         >
-          {isOpen ? '✕' : '☰'}
+          {isOpen ? '✕' : (
+            <div className="flex flex-col gap-1">
+              <span className="block w-6 h-1 bg-black "></span>
+              <span className="block w-6 h-1 bg-black "></span>
+              <span className="block w-6 h-1 bg-black "></span>
+            </div>
+          )}
         </button>
 
         {/* Mobile: Logo */}
@@ -25,7 +31,8 @@ export default function Navbar() {
           <h1 className="text-xl font-bold mr-8">Song4U</h1>
           <Link href="/" >Beranda</Link>
           <Link href="/about">About</Link>
-          <Link href="/message">Message</Link>
+          <Link href="/message">All Message</Link>
+          <Link href="/receipt">Create Your Message</Link>
         </div>
       </nav>
 
@@ -35,11 +42,13 @@ export default function Navbar() {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="p-4">
+        <div className="p-6">
           <ul className="space-y-4">
             <li><Link href="/" onClick={toggleSidebar} className="block">Beranda</Link></li>
             <li><Link href="/about" onClick={toggleSidebar} className="block">About</Link></li>
-            <li><Link href="/message" onClick={toggleSidebar} className="block">Message</Link></li>
+            <li><Link href="/message" onClick={toggleSidebar} className="block">All Message</Link></li>
+            <li><Link href="/receipt" onClick={toggleSidebar} className="block mt-5 bg-white w-40 rounded-xl p-0.5 border-2 border-black"><div className="bg-black text-white rounded-xl p-0.5 text-center ">Create Ur Message</div></Link></li>
+            
           </ul>
         </div>
       </div>

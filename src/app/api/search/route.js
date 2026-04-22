@@ -2,34 +2,22 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const q = searchParams.get("q")
 
-  const clientId = process.env.SPOTIFY_CLIENT_ID
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
-
-  const authRes = await fetch("https://accounts.spotify.com/api/token ", {
-    method: "POST",
-    headers: {
-      Authorization:
-        "Basic " +
-        Buffer.from(`${clientId}:${clientSecret}`).toString("base64"),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "grant_type=client_credentials",
-  })
-
-  const { access_token } = await authRes.json()
-
-  const searchRes = await fetch(
-    `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-      q
-    )}&type=track&limit=3`,
-    {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    }
+  const res = await fetch(
+    `https://itunes.apple.com/search?term=${encodeURIComponent(q)}&media=music&limit=5&country=ID`
   )
 
-  const data = await searchRes.json()
+  const data = await res.json()
 
-  return Response.json(data.tracks.items)
+  // Mapping agar struktur mirip Spotify
+  const tracks = data.results.map((item) => ({
+    id: item.trackId,
+    name: item.trackName,
+    artists: [{ name: item.artistName }],
+    album: {
+      images: [{ url: item.artworkUrl100 }],
+    },
+    previewUrl: item.previewUrl,
+  }))
+
+  return Response.json(tracks)
 }
