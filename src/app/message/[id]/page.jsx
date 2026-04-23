@@ -31,7 +31,7 @@ export default function MessageDetail() {
 
   return (
     <div className="flex flex-col min-h-screen max-w-[28rem] justify-center items-center sm:mx-auto p-6 pt-10 ">
-      <div className="flex justify-center w-full h-full px-10">
+      <div className="flex justify-center w-full h-full px-6">
         <img src={message.imageUrl} alt="messageImage" className="object-cover rounded-lg" />
       </div>
       <h1 className="p-4 text-3xl font-bold ">Hey {message.to}, someone just dropped a message and maybe a piece of their heart too.</h1>
@@ -45,7 +45,7 @@ export default function MessageDetail() {
               />
               <div className="flex-1 overflow-hidden">
                 <p className="text-white font-bold text-sm truncate">{message.track.name}</p>
-                <p className="text-gray-400 text-xs truncate">
+                <p className="text-gray-400 text-sm truncate">
                   {message.track.artists.join(", ")}
                 </p>
                 <audio controls src={message.track.previewUrl} className="w-full mt-1 h-8" />

@@ -29,7 +29,7 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
           <h1 className="text-xl font-bold mr-8">Song4U</h1>
-          <Link href="/" >Beranda</Link>
+          <Link href="/" >Home</Link>
           <Link href="/about">About</Link>
           <Link href="/message">All Message</Link>
           <Link href="/receipt">Create Your Message</Link>
@@ -44,13 +44,16 @@ export default function Navbar() {
       >
         <div className="p-6">
           <ul className="space-y-4">
-            <li><Link href="/" onClick={toggleSidebar} className="block">Beranda</Link></li>
+            <li><Link href="/" onClick={toggleSidebar} className="block">Home</Link></li>
             <li><Link href="/about" onClick={toggleSidebar} className="block">About</Link></li>
             <li><Link href="/message" onClick={toggleSidebar} className="block">All Message</Link></li>
             <li><Link href="/receipt" onClick={toggleSidebar} className="block mt-5 bg-white w-40 rounded-xl p-0.5 border-2 border-black"><div className="bg-black text-white rounded-xl p-0.5 text-center ">Create Ur Message</div></Link></li>
             
           </ul>
         </div>
+        <footer className="absolute bottom-0 w-full p-2 bg-[#F8F8F7] flex justify-center text-sm">
+            <p>© 2026 Song4U By DA.</p>
+        </footer>
       </div>
 
       {/* sidebar terbuka */}
