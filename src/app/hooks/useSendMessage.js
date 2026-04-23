@@ -8,7 +8,7 @@ export function useSendMessage() {
   const [isSending, setIsSending] = useState(false);
   const router = useRouter();
 
-  const sendMessage = async ({ to, message, selected }) => {
+  const sendMessage = async ({ to, message, selected,imageUrl}) => {
     if (!to || !message || !selected) return;
 
     try {
@@ -24,6 +24,7 @@ export function useSendMessage() {
           artists: selected.artists.map((a) => a.name),
           previewUrl: selected.previewUrl ?? null,
         },
+        imageUrl: imageUrl ?? null,
         createdAt: Timestamp.now(),
       });
 

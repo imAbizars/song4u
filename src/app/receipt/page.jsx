@@ -2,7 +2,7 @@
 import { useState } from "react";
 import {useSearchMessage} from "../hooks/useSearchSong"
 import { useSendMessage } from "../hooks/useSendMessage";
-
+import { useUploadImage } from "../hooks/useUploadImage";
 export default function Receipt() {
   const {
     query,
@@ -16,11 +16,24 @@ export default function Receipt() {
   } = useSearchMessage();
   const {isSending,sendMessage} = useSendMessage();
   const [to, setTo] = useState("");
+  const {uploadImage} = useUploadImage();
   const [message, setMessage] = useState("");
-   
-  const handleSend = () => {
-    sendMessage({ to, message, selected });
+  const [imageFile,setImageFile] = useState(null);
+  
+  const handleSend = async () => {
+    let imageUrl = null;
+    if (imageFile) {
+      imageUrl = await uploadImage(imageFile);
+    }
+    sendMessage({ to, message, selected, imageUrl });
   };
+  
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setImageFile(file);                         
+  };
+  
 
   return (
     <section className="flex justify-center min-h-screen ">
@@ -53,6 +66,15 @@ export default function Receipt() {
           />
         </div>
 
+        <div className="flex flex-row gap-4">
+          <div>Image:</div>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="border rounded-xl p-2 w-full"
+          />
+        </div>
         {/* song choosed */}
         <div className="flex flex-row gap-3">
           <div className="text-xl mb-1 w-[100px]">The Song:</div>
