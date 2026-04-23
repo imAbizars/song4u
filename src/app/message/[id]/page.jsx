@@ -31,9 +31,11 @@ export default function MessageDetail() {
 
   return (
     <div className="flex flex-col min-h-screen max-w-[28rem] justify-center items-center sm:mx-auto p-6 pt-10 ">
-      <img src={message.imageUrl} alt="messageImage" className="rounded-lg" />
+      <div className="flex justify-center w-full h-full px-10">
+        <img src={message.imageUrl} alt="messageImage" className="object-cover rounded-lg" />
+      </div>
       <h1 className="p-4 text-3xl font-bold ">Hey {message.to}, someone just dropped a message and maybe a piece of their heart too.</h1>
-      <div className="mt-5 bg-[#FAFBFB] shadow rounded-lg overflow-hidden hover:shadow-lg transition w-full p-4">
+      <div className="mt-2 mb-4 bg-[#FAFBFB] shadow rounded-lg overflow-hidden hover:shadow-lg transition w-full p-4">
         <div className="flex items-center">
           {message.track?.previewUrl ? (
             <div className="w-full bg-black rounded-xl p-3 flex items-center gap-3">

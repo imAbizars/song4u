@@ -16,10 +16,10 @@ export default function Receipt() {
   } = useSearchMessage();
   const {isSending,sendMessage} = useSendMessage();
   const [to, setTo] = useState("");
-  const {uploadImage} = useUploadImage();
+  const {uploadImage,isUploading} = useUploadImage();
   const [message, setMessage] = useState("");
   const [imageFile,setImageFile] = useState(null);
-  
+
   const handleSend = async () => {
     let imageUrl = null;
     if (imageFile) {
@@ -149,10 +149,18 @@ export default function Receipt() {
 
             <button
               onClick={handleSend}
-              disabled={isSending}
-              className="bg-black text-white px-4 py-2 rounded-xl hover:bg-[#383737] cursor-pointer"
+              disabled={isSending || isUploading}
+              className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-xl hover:bg-[#383737] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSending?"Sendig Messages" : "Send Message"}
+              {isSending || isUploading ? (
+                <>
+                  <span className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]" />
+                  <span className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]" />
+                  <span className="w-2 h-2 bg-white rounded-full animate-bounce" />
+                </>
+              ) : (
+                "Send Message"
+              )}
             </button>
           </div>
       </div>

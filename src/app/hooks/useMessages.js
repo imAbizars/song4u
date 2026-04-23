@@ -17,7 +17,7 @@ export function useMessages() {
         const data = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
-        }))
+        })).sort((a, b) => b.createdAt?.toMillis() - a.createdAt?.toMillis());
         setMessages(data)
       } catch (err) {
         console.error("Failed to fetch messages", err)
