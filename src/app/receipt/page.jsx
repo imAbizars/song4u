@@ -1,5 +1,7 @@
 'use client';
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {useSearchMessage} from "../hooks/useSearchSong"
 import { useSendMessage } from "../hooks/useSendMessage";
 import { useUploadImage } from "../hooks/useUploadImage";
@@ -27,13 +29,13 @@ export default function Receipt() {
     }
     sendMessage({ to, message, selected, imageUrl });
   };
-  
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    setImageFile(file);                         
+    setImageFile(file);
   };
-  
+
 
   return (
     <section className="flex justify-center min-h-screen ">
@@ -45,12 +47,15 @@ export default function Receipt() {
         {/* input nama */}
         <div className="flex flex-row items-center gap-13">
           <div className="text-xl w-[30px]">To:</div>
-          <input 
+          <Input
           type="text"
           value={to}
-          onChange={(e) => setTo(e.target.value)} 
-          spellCheck={false} 
-          className="border-2 px-2 w-full h-10 rounded-xl" style={{fontFamily:'Caveat'}}/>
+          onChange={(e) => setTo(e.target.value)}
+          spellCheck={false}
+          style={{ fontFamily: 'Caveat' }}
+          className="border border-black"
+          />
+
         </div>
 
         {/* pesan */}
@@ -109,7 +114,7 @@ export default function Receipt() {
               )}
             </div>
           )}
-        </div> 
+        </div>
         {/* search lagu */}
         <div className="flex flex-row gap-7">
           <input
@@ -147,10 +152,10 @@ export default function Receipt() {
               ))
             )}
 
-            <button
+            <Button
               onClick={handleSend}
               disabled={isSending || isUploading}
-              className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-xl hover:bg-[#383737] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 bg-black text-white px-4 py-2  hover:bg-[#383737] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSending || isUploading ? (
                 <>
@@ -161,7 +166,7 @@ export default function Receipt() {
               ) : (
                 "Send Message"
               )}
-            </button>
+            </Button>
           </div>
       </div>
     </section>
